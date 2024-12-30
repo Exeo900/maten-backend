@@ -1,5 +1,6 @@
 ﻿using Application.Recipes.Common.Models;
 using Application.Recipes.Queries.GetRecipes;
+using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace maten_backend.Endpoints
@@ -8,23 +9,14 @@ namespace maten_backend.Endpoints
     {
         public static void ConfigureEndpoints(this WebApplication app)
         {
-            app.MapGet("/recipes", GetRecipe);
+            app.MapGet("/recipes", GetRecipes);
         }
 
-        public static async Task<Ok<RecipesVm>> GetRecipe()
+        public static async Task<Ok<RecipesVm>> GetRecipes(ISender sender)
         {
-            var recipes = new RecipesVm()
-            {
-                Recipes = new List<RecipeVm>()
-                {
-                    new RecipeVm()
-                    {
-                        Name = "Korvstroganoff"
-                    }
-                }
-            };
+            var vm = await sender.Send(new GetRecipeQuery());
 
-            return TypedResults.Ok(recipes);
+            return TypedResults.Ok(vm);
         }
     }
 }

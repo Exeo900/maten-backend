@@ -4,3 +4,6 @@ GET {{maten_backend_HostAddress}}/recipes/
 Accept: application/json
 
 ###
+
+POST {{maten_backend_HostAddress}}/recipes?name=lasagne
+Accept: application/json

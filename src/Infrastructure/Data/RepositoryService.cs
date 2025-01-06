@@ -1,9 +1,8 @@
 ﻿using Application.Recipes.Common.Interfaces;
-using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data;
-public class RepositoryService<T> : IRepositoryService<T> where T : class
+public class RepositoryService<T> : IRepositoryService<T> where T : class  
 {
     private readonly AppDbContext _context;
     private readonly DbSet<T> _dbSet;
@@ -21,9 +20,11 @@ public class RepositoryService<T> : IRepositoryService<T> where T : class
         await _context.SaveChangesAsync();
     }
 
-    public async Task Delete(T entity)
+    public async Task<int> Delete(T entity)
     {
-        throw new NotImplementedException();
+        _dbSet.Remove(entity);
+
+        return await _context.SaveChangesAsync();
     }
 
     public async Task<IEnumerable<T>> GetAll()
@@ -31,9 +32,9 @@ public class RepositoryService<T> : IRepositoryService<T> where T : class
         return await _dbSet.ToListAsync();
     }
 
-    public async Task<T> GetById(int id)
+    public async Task<T> GetById(Guid id)
     {
-        throw new NotImplementedException();
+        return await _dbSet.FindAsync(id);
     }
 
     public async Task Update(T entity)

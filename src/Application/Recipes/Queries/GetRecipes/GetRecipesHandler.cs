@@ -17,6 +17,6 @@ public class GetRecipesHandler : IRequestHandler<GetRecipeQuery, RecipesVm>
     {
        var allRecipes = await _repositoryService.GetAll();
 
-       return new RecipesVm() { Recipes = allRecipes.Select(x => new RecipeVm() { Name = x.Name }) };
+       return new RecipesVm() { Recipes = allRecipes.Select(x => new RecipeVm() { Id = x.Id, Name = x.Name }) };
     }
 }

@@ -7,3 +7,10 @@ Accept: application/json
 
 POST {{maten_backend_HostAddress}}/recipes?name=lasagne
 Accept: application/json
+
+###
+
+DELETE {{maten_backend_HostAddress}}/recipes?id=019430af-71f1-7036-92ea-ca6c77f6517f
+Accept: application/json
+
+###

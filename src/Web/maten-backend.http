@@ -14,3 +14,21 @@ DELETE {{maten_backend_HostAddress}}/recipes?id=019430af-71f1-7036-92ea-ca6c77f6
 Accept: application/json
 
 ###
+
+POST {{maten_backend_HostAddress}}/recipes?name=lasagne
+Content-Type: application/json
+{
+  "name": "Pasta Carbonara",
+  "instructions": [
+    {
+      "StepNumber": 1,
+      "Text": "Boil water"
+    },
+    {
+      "StepNumber": 2,
+      "Text": "Cook pasta"
+    }
+  ]
+}
+
+###

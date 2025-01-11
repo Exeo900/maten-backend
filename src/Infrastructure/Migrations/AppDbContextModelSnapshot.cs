@@ -22,6 +22,29 @@ namespace Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Domain.Entities.Instruction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("RecipeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("StepNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("Instructions");
+                });
+
             modelBuilder.Entity("Domain.Entities.Recipe", b =>
                 {
                     b.Property<Guid>("Id")
@@ -35,6 +58,18 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Recipes");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Instruction", b =>
+                {
+                    b.HasOne("Domain.Entities.Recipe", null)
+                        .WithMany("Instructions")
+                        .HasForeignKey("RecipeId");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Recipe", b =>
+                {
+                    b.Navigation("Instructions");
                 });
 #pragma warning restore 612, 618
         }

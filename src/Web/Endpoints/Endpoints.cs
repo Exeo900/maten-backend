@@ -21,9 +21,9 @@ namespace maten_backend.Endpoints
             return TypedResults.Ok(vm);
         }
 
-        public static async Task<Ok<Guid>> CreateRecipe(ISender sender, string name)
+        public static async Task<Ok<Guid>> CreateRecipe(ISender sender, CreateRecipeCommand createRecipeCommand)
         {
-            var vm = await sender.Send(new CreateRecipeCommand() { Name = name });
+            var vm = await sender.Send(createRecipeCommand);
 
             return TypedResults.Ok(vm);
         }

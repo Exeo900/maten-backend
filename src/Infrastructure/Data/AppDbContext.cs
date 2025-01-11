@@ -9,4 +9,5 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Recipe> Recipes { get; set; }
+    public DbSet<Instruction> Instructions { get; set; }
 }

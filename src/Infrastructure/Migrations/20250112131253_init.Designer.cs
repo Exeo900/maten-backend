@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250111151419_init")]
+    [Migration("20250112131253_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -31,7 +31,7 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("RecipeId")
+                    b.Property<Guid>("RecipeId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("StepNumber")
@@ -65,9 +65,13 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Instruction", b =>
                 {
-                    b.HasOne("Domain.Entities.Recipe", null)
+                    b.HasOne("Domain.Entities.Recipe", "Recipe")
                         .WithMany("Instructions")
-                        .HasForeignKey("RecipeId");
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("Domain.Entities.Recipe", b =>

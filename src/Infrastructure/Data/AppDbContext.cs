@@ -8,6 +8,11 @@ public class AppDbContext : DbContext
     {
     }
 
-    public DbSet<Recipe> Recipes { get; set; }
-    public DbSet<Instruction> Instructions { get; set; }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Recipe>().HasMany(x => x.Instructions).WithOne(x => x.Recipe).OnDelete(DeleteBehavior.Cascade);
+    }
+
+    public DbSet<Recipe>? Recipes { get; set; }
+    public DbSet<Instruction>? Instructions { get; set; }
 }

@@ -8,6 +8,6 @@ public static class DependencyInjection
     public static void AddInfrastructureServices(this IServiceCollection services)
     {
         services.AddDbContext<AppDbContext>(options =>
-            options.UseNpgsql("Server=localhost;Port=5432;Database=matendb;User ID=postgres;Password=mysecretpassword"));
+            options.UseNpgsql("Server=localhost;Port=5432;Database=maten_db;User ID=postgres;Password=mysecretpassword"));
     }
 }

@@ -3,4 +3,5 @@ public class Instruction : Entity
 {
     public int StepNumber { get; set; }
     public required string Text { get; set; }
+    public Recipe? Recipe { get; set; }
 }

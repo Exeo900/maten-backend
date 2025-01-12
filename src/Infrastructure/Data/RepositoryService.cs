@@ -1,11 +1,12 @@
 ﻿using Application.Recipes.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Infrastructure.Data;
 public class RepositoryService<T> : IRepositoryService<T> where T : class  
 {
     private readonly AppDbContext _context;
-    private readonly DbSet<T> _dbSet;
+    protected readonly DbSet<T> _dbSet;
 
     public RepositoryService(AppDbContext context)
     {
@@ -25,6 +26,18 @@ public class RepositoryService<T> : IRepositoryService<T> where T : class
         _dbSet.Remove(entity);
 
         return await _context.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<T>> GetAll(params Expression<Func<T, object>>[] includes)
+    {
+        IQueryable<T> query = _dbSet;
+
+        foreach (var include in includes)
+        {
+            query = query.Include(include);
+        }
+
+        return await query.ToListAsync();
     }
 
     public async Task<IEnumerable<T>> GetAll()

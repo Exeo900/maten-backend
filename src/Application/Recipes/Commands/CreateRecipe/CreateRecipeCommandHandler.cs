@@ -14,7 +14,29 @@ public class CreateRecipeCommandHandler : IRequestHandler<CreateRecipeCommand, G
 
     public async Task<Guid> Handle(CreateRecipeCommand request, CancellationToken cancellationToken)
     {
-        var recipe = new Recipe { Name = request.Name, Instructions = request.Instructions };
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        var instructions = request.Instructions?.Select(x => new Instruction
+        {
+            StepNumber = x.StepNumber,
+            Text = x.Text
+        }).ToList();
+
+        var ingredients = request.Ingredients?.Select(x => new RecipeIngredient
+        {
+            Amount = x.Amount,
+            IngredientId = x.IngredientId
+        }).ToList();
+
+        var recipe = new Recipe
+        {
+            Name = request.Name,
+            Instructions = instructions ?? new List<Instruction>(),
+            Ingredients = ingredients ?? new List<RecipeIngredient>()
+        };
 
         await _repositoryService.Create(recipe);
 

@@ -5,12 +5,12 @@ Accept: application/json
 
 ###
 
-DELETE {{maten_backend_HostAddress}}/recipes?id=01945ab0-5bf8-7b75-a35e-5a9ad5eab440
+DELETE {{maten_backend_HostAddress}}/recipes?id=01945ab0-97e5-7b35-a8ba-107b8ce5e128
 Accept: application/json
 
 ###
 
-POST {{maten_backend_HostAddress}}/recipes?name=lasagne
+POST {{maten_backend_HostAddress}}/recipes
 Content-Type: application/json
 {
   "name": "Pasta Carbonara",
@@ -23,7 +23,31 @@ Content-Type: application/json
       "StepNumber": 2,
       "Text": "Cook pasta"
     }
+  ],
+  "Ingredients": [
+    {
+      "IngredientId": "019478b5-dc57-7633-984a-9a2104db0c94",
+      "Amount": 1
+    }
   ]
 }
+
+###
+
+GET {{maten_backend_HostAddress}}/ingredients/
+Accept: application/json
+
+###
+
+POST {{maten_backend_HostAddress}}/ingredients
+Content-Type: application/json
+{
+  "name": "Ost",
+  "description": "Mejeriprodukt som tillverkas av mjölk"
+}
+
+###
+
+DELETE {{maten_backend_HostAddress}}/ingredients?id=019478b5-e0a0-7cee-8f18-1d76a436e819
 
 ###

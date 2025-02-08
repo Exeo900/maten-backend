@@ -1,9 +1,10 @@
 ﻿using Application.Recipes.Common.Interfaces;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace Infrastructure.Data;
-public class RepositoryService<T> : IRepositoryService<T> where T : class  
+public class RepositoryService<T> : IRepositoryService<T> where T : Entity  
 {
     private readonly AppDbContext _context;
     protected readonly DbSet<T> _dbSet;
@@ -40,18 +41,22 @@ public class RepositoryService<T> : IRepositoryService<T> where T : class
         return await query.ToListAsync();
     }
 
-    public async Task<IEnumerable<T>> GetAll()
+    public async Task<T> GetById(Guid id, params Expression<Func<T, object>>[] includes)
     {
-        return await _dbSet.ToListAsync();
+        IQueryable<T> query = _dbSet;
+
+        foreach (var include in includes)
+        {
+            query = query.Include(include);
+        }
+
+        return await query.FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<T> GetById(Guid id)
+    public async Task<int> Update(T entity)
     {
-        return await _dbSet.FindAsync(id);
-    }
+        _dbSet.Update(entity);
 
-    public async Task Update(T entity)
-    {
-        throw new NotImplementedException();
+        return await _context.SaveChangesAsync();
     }
 }

@@ -5,7 +5,7 @@ Accept: application/json
 
 ###
 
-DELETE {{maten_backend_HostAddress}}/recipes?id=01945ab0-97e5-7b35-a8ba-107b8ce5e128
+DELETE {{maten_backend_HostAddress}}/recipes?id=0194e66d-4a9f-775e-9103-f30849d5d11d
 Accept: application/json
 
 ###
@@ -26,11 +26,39 @@ Content-Type: application/json
   ],
   "Ingredients": [
     {
-      "IngredientId": "019478b5-dc57-7633-984a-9a2104db0c94",
+      "IngredientId": "0194e66d-120a-7bc9-a4c3-328f2043441f",
       "Amount": 1
     }
   ]
 }
+
+###
+
+PUT {{maten_backend_HostAddress}}/recipes
+Content-Type: application/json
+{
+  "id" : "0194e66e-960f-7526-bec3-eda9dae30f45",
+  "name": "Blood pudding",
+  "instructions": [
+    {
+        "id": "0194e67b-ff59-70ea-9e0c-78ea12d62b0a",
+        "stepNumber": 1,
+        "text": "Chop blodpudding"
+    },
+    {
+        "id": "0194e67b-ff5d-717d-9b3a-c153828bb578",
+        "stepNumber": 2,
+        "text": "Fry the blodpudding in the frying pan"
+    }
+  ],
+  "Ingredients": [
+    {
+      "IngredientId": "0194a2f0-e753-753e-96dd-816da5637c7b",
+      "Amount": 1
+    }
+  ]
+}
+
 
 ###
 
@@ -48,6 +76,16 @@ Content-Type: application/json
 
 ###
 
-DELETE {{maten_backend_HostAddress}}/ingredients?id=019478b5-e0a0-7cee-8f18-1d76a436e819
+PUT {{maten_backend_HostAddress}}/ingredients
+Content-Type: application/json
+{
+  "Id": "0194a2f0-e753-753e-96dd-816da5637c7b",
+  "name": "Getost",
+  "description": "Getost är ost med mjölk från tamget som huvudingrediens"
+}
+
+###
+
+DELETE {{maten_backend_HostAddress}}/ingredients?id=019478b5-dc57-7633-984a-9a2104db0c94
 
 ###

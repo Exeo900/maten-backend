@@ -11,6 +11,7 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Recipe>().HasMany(x => x.Instructions).WithOne(x => x.Recipe).OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<Recipe>().HasMany(r => r.Ingredients).WithOne(ri => ri.Recipe).HasForeignKey(ri => ri.RecipeId).OnDelete(DeleteBehavior.Cascade);
     }
 
     public DbSet<Recipe>? Recipes { get; set; }
